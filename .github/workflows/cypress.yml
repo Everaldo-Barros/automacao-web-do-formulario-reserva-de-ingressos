@@ -20,7 +20,7 @@ jobs:
         run: npm ci
 
       - name: Testar versão LOCAL
-        run: npx cypress run --spec "cypress/e2e/1-pagina-inicial.cy.js"
+        run: npm test
 
       - name: Testar versão PUBLICADA na Web
         run: npx cypress run --config baseUrl=https://everaldo-barros.github.io/formulario-reserva-de-ingressos/
