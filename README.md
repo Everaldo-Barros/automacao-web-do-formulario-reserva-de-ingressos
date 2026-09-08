@@ -1,2 +1,2 @@
 # automacao-web-do-formulario-reserva-de-ingressos
-Este repositório contem exercícios para fins didáticos em automações Web com Cypress
+Este repositório contem exercícios para fins didáticos em automações Web com Cypress.
