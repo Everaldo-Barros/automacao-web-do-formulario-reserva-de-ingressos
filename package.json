@@ -1,0 +1,17 @@
+{
+  "name": "formulario-reserva-de-ingressos",
+  "version": "1.0.0",
+  "description": "Projeto didático de automação Web",
+  "scripts": {
+    "start": "node server.js",
+    "test": "start-server-and-test start http://localhost:8080 test:e2e",
+    "test:e2e": "cypress run",
+    "test:local": "start-server-and-test start http://localhost:8080 cypress:open",
+    "cypress:open": "cypress open",
+    "test:web": "cypress run --config baseUrl=https://everaldo-barros.github.io/formulario-reserva-de-ingressos/"
+  },
+  "devDependencies": {
+    "cypress": "^13.0.0",
+    "start-server-and-test": "^3.0.12"
+  }
+}

@@ -1,0 +1,23 @@
+# 📦 Dependências do Node.js
+node_modules/
+package-lock.json
+
+# 🧪 Gravações e capturas de tela do Cypress
+cypress/screenshots/
+cypress/videos/
+*.mp4
+*.png
+
+# ⚙️ Arquivos de configuração local
+cypress.env.json
+.env
+.env.local
+
+# 💻 Arquivos temporários do sistema
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# 📋 Pasta de relatórios de teste
+cypress/results/

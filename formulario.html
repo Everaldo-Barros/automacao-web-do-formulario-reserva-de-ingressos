@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reserva de Ingressos</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 720px; margin: 0 auto; padding: 32px 24px; color: #18202a; }
+    form { display: grid; gap: 14px; border: 1px solid #d8dee6; border-radius: 8px; padding: 28px; }
+    label { display: grid; gap: 6px; font-weight: bold; }
+    input, select, button { font: inherit; padding: 9px; }
+    fieldset { display: grid; gap: 8px; border: 0; padding: 0; }
+    fieldset label { display: flex; flex-direction: row; align-items: center; font-weight: normal; }
+    .mensagem { display: none; padding: 12px; border-radius: 4px; }
+    .mensagem.visivel { display: block; }
+    .mensagem.sucesso { color: #14532d; background: #dcfce7; }
+    .mensagem.erro { color: #991b1b; background: #fee2e2; }
+  </style>
+</head>
+<body>
+  <h1>Simulador — Everaldo Barros</h1>
+  <form id="reserva-form" novalidate>
+    <label>Nome <input id="nome" name="nome" required></label>
+    <label>Sobrenome <input id="sobrenome" name="sobrenome" required></label>
+    <label>E-mail <input id="email" name="email" type="email" required></label>
+    <label>Telefone <input id="telefone" name="telefone" type="tel"></label>
+    <label>Jogo
+      <select id="jogo" name="jogo" required>
+        <option value="">Selecione um jogo</option>
+        <option>Palmeiras x Grêmio</option>
+        <option>Flamengo x Santos</option>
+        <option>Cruzeiro x Vasco</option>
+        <option>Corinthians x Bahia</option>
+      </select>
+    </label>
+    <label>Setor
+      <select id="setor" name="setor" required>
+        <option value="">Selecione um setor</option>
+        <option>Cadeira Coberta</option>
+        <option>Arquibancada</option>
+        <option>Setor VIP</option>
+        <option>Arquibancada Superior</option>
+      </select>
+    </label>
+    <label>Quantidade <input id="quantidade" name="quantidade" type="number" min="1" max="10" required></label>
+    <fieldset>
+      <legend>Pagamento</legend>
+      <label><input type="radio" name="pagamento" value="pix" required> Pix</label>
+      <label><input type="radio" name="pagamento" value="boleto"> Boleto</label>
+      <label><input type="radio" name="pagamento" value="cartao"> Cartão</label>
+    </fieldset>
+    <label><span><input id="concorda" name="concorda" type="checkbox"> Concordo com os termos</span></label>
+    <button id="enviar" type="submit">Reservar ingressos</button>
+    <div class="mensagem erro" role="alert">Verifique os campos obrigatórios</div>
+  </form>
+  <script>
+    const form = document.querySelector('#reserva-form');
+    const errorMessage = document.querySelector('.mensagem.erro');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      document.querySelector('.mensagem.sucesso')?.remove();
+      errorMessage.classList.remove('visivel');
+
+      if (!form.checkValidity() || !document.querySelector('#concorda').checked) {
+        errorMessage.classList.add('visivel');
+        return;
+      }
+
+      const successMessage = document.createElement('div');
+      successMessage.className = 'mensagem sucesso visivel';
+      successMessage.setAttribute('role', 'status');
+      successMessage.textContent = 'Compra realizada com sucesso';
+      form.append(successMessage);
+      form.reset();
+    });
+  </script>
+</body>
+</html>
