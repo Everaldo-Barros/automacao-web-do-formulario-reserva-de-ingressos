@@ -1,79 +1,144 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Reserva de Ingressos</title>
-  <style>
-    body { font-family: Arial, sans-serif; max-width: 720px; margin: 0 auto; padding: 32px 24px; color: #18202a; }
-    form { display: grid; gap: 14px; border: 1px solid #d8dee6; border-radius: 8px; padding: 28px; }
-    label { display: grid; gap: 6px; font-weight: bold; }
-    input, select, button { font: inherit; padding: 9px; }
-    fieldset { display: grid; gap: 8px; border: 0; padding: 0; }
-    fieldset label { display: flex; flex-direction: row; align-items: center; font-weight: normal; }
-    .mensagem { display: none; padding: 12px; border-radius: 4px; }
-    .mensagem.visivel { display: block; }
-    .mensagem.sucesso { color: #14532d; background: #dcfce7; }
-    .mensagem.erro { color: #991b1b; background: #fee2e2; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Compra de Ingressos — Automação Web</title>
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
-  <h1>Simulador — Everaldo Barros</h1>
-  <form id="reserva-form" novalidate>
-    <label>Nome <input id="nome" name="nome" required></label>
-    <label>Sobrenome <input id="sobrenome" name="sobrenome" required></label>
-    <label>E-mail <input id="email" name="email" type="email" required></label>
-    <label>Telefone <input id="telefone" name="telefone" type="tel"></label>
-    <label>Jogo
-      <select id="jogo" name="jogo" required>
-        <option value="">Selecione um jogo</option>
-        <option>Palmeiras x Grêmio</option>
-        <option>Flamengo x Santos</option>
-        <option>Cruzeiro x Vasco</option>
-        <option>Corinthians x Bahia</option>
-      </select>
-    </label>
-    <label>Setor
-      <select id="setor" name="setor" required>
-        <option value="">Selecione um setor</option>
-        <option>Cadeira Coberta</option>
-        <option>Arquibancada</option>
-        <option>Setor VIP</option>
-        <option>Arquibancada Superior</option>
-      </select>
-    </label>
-    <label>Quantidade <input id="quantidade" name="quantidade" type="number" min="1" max="10" required></label>
-    <fieldset>
-      <legend>Pagamento</legend>
-      <label><input type="radio" name="pagamento" value="pix" required> Pix</label>
-      <label><input type="radio" name="pagamento" value="boleto"> Boleto</label>
-      <label><input type="radio" name="pagamento" value="cartao"> Cartão</label>
-    </fieldset>
-    <label><span><input id="concorda" name="concorda" type="checkbox"> Concordo com os termos</span></label>
-    <button id="enviar" type="submit">Reservar ingressos</button>
-    <div class="mensagem erro" role="alert">Verifique os campos obrigatórios</div>
-  </form>
-  <script>
-    const form = document.querySelector('#reserva-form');
-    const errorMessage = document.querySelector('.mensagem.erro');
+    <div class="pagina">
+        <div class="container">
+            <header class="cabecalho">
+                <h1>Simulador — Everaldo Barros</h1>
+                <p>Simulador de reserva de ingressos — Projeto didático de automação Web</p>
+                <div class="linha-destaque"></div>
+            </header>
 
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      document.querySelector('.mensagem.sucesso')?.remove();
-      errorMessage.classList.remove('visivel');
+            <form id="compraForm" novalidate>
+                <section class="secao">
+                    <h2>Dados do Comprador</h2>
+                    <div class="grid-campos">
+                        <div class="campo">
+                            <label for="nome">Nome *</label>
+                            <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+                        </div>
+                        <div class="campo">
+                            <label for="sobrenome">Sobrenome *</label>
+                            <input type="text" id="sobrenome" name="sobrenome" required placeholder="Seu sobrenome">
+                        </div>
+                    </div>
+                    <div class="grid-campos">
+                        <div class="campo">
+                            <label for="email">E-mail *</label>
+                            <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                        </div>
+                        <div class="campo">
+                            <label for="telefone">Telefone (com DDD)</label>
+                            <input type="tel" id="telefone" name="telefone" placeholder="Ex: 49999991234">
+                        </div>
+                    </div>
+                </section>
 
-      if (!form.checkValidity() || !document.querySelector('#concorda').checked) {
-        errorMessage.classList.add('visivel');
-        return;
-      }
+                <section class="secao">
+                    <h2>Jogo e Setor</h2>
+                    <div class="grid-campos">
+                        <div class="campo">
+                            <label for="jogo">Jogo *</label>
+                            <select id="jogo" name="jogo" required>
+                                <option value="">Selecione um jogo</option>
+                                <option value="fla_x_spa">Flamengo x Santos</option>
+                                <option value="pal_x_gre">Palmeiras x Grêmio</option>
+                                <option value="cor_x_bah">Corinthians x Bahia</option>
+                                <option value="cru_x_vas">Cruzeiro x Vasco</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="setor">Setor *</label>
+                            <select id="setor" name="setor" required>
+                                <option value="">Selecione o setor</option>
+                                <option value="arquibancada">Arquibancada</option>
+                                <option value="superior">Arquibancada Superior</option>
+                                <option value="cadeira">Cadeira Coberta</option>
+                                <option value="vip">Setor VIP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="campo-pequeno">
+                        <label for="quantidade">Quantidade * (máx. 10)</label>
+                        <input type="number" id="quantidade" name="quantidade" min="1" max="10" required>
+                    </div>
+                </section>
 
-      const successMessage = document.createElement('div');
-      successMessage.className = 'mensagem sucesso visivel';
-      successMessage.setAttribute('role', 'status');
-      successMessage.textContent = 'Compra realizada com sucesso';
-      form.append(successMessage);
-      form.reset();
-    });
-  </script>
+                <section class="secao">
+                    <h2>Forma de Pagamento *</h2>
+                    <div class="opcoes-radio">
+                        <label class="opcao-radio">
+                            <input type="radio" name="pagamento" value="pix" required>
+                            <span class="marcador"></span> PIX
+                        </label>
+                        <label class="opcao-radio">
+                            <input type="radio" name="pagamento" value="cartao">
+                            <span class="marcador"></span> Cartão de Crédito
+                        </label>
+                        <label class="opcao-radio">
+                            <input type="radio" name="pagamento" value="boleto">
+                            <span class="marcador"></span> Boleto Bancário
+                        </label>
+                    </div>
+                </section>
+
+                <section class="secao">
+                    <h2>Informações Adicionais</h2>
+                    <div class="campo">
+                        <label for="observacoes">Algum pedido especial?</label>
+                        <textarea id="observacoes" name="observacoes" rows="4" placeholder="Ex: necessidade de acesso, acompanhante, preferências, etc."></textarea>
+                    </div>
+                </section>
+
+                <section class="secao">
+                    <label class="caixa-confirmacao">
+                        <input type="checkbox" id="concorda" required>
+                        <span class="marcador"></span>
+                        Li e concordo com os termos de uso e política de privacidade *
+                    </label>
+                </section>
+
+                <button type="submit" id="enviar">Confirmar Compra</button>
+
+                <div id="mensagemSucesso" class="mensagem sucesso" hidden>
+                    Compra realizada com sucesso! Em breve você receberá os ingressos por e-mail.
+                </div>
+                <div id="mensagemErro" class="mensagem erro" hidden>
+                    Verifique os campos obrigatórios e tente novamente.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('compraForm');
+        const msgSucesso = document.getElementById('mensagemSucesso');
+        const msgErro = document.getElementById('mensagemErro');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            msgErro.hidden = true;
+            msgSucesso.remove();
+
+            const camposObrigatoriosValidos = form.checkValidity() && document.getElementById('concorda').checked;
+            const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value);
+            const telefone = document.getElementById('telefone').value.replace(/\D/g, '');
+            const telefoneValido = telefone === '' || telefone.length >= 10;
+
+            if (camposObrigatoriosValidos && emailValido && telefoneValido) {
+                form.insertBefore(msgSucesso, msgErro);
+                msgSucesso.hidden = false;
+                form.reset();
+            } else {
+                msgErro.hidden = false;
+            }
+        });
+    </script>
 </body>
 </html>
